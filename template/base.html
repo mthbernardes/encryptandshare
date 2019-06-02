@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Encrypt&Share</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="static/css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Unica+One&display=swap" rel="stylesheet">
+  </head>
+  <body>
+   <div class="container">
+      <div style="width:800px; margin:0 auto;" align="center">
+        <div>
+          <h1>Encrypt&Share</h1>
+        </div>
+        {%block content%}
+        {% endblock %}
+        <p>
+        This is a service to encrypt and share files.
+        All the files are encrypted on the client side using only javascript CryptoJS library with a randomly generated password.
+        </p>
+      </div>
+    </div>
+    <script src="static/js/api.js"></script>
+    <script src="static/js/encrypt.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+  </body>
+</html>
+

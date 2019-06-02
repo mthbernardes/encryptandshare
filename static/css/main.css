@@ -1,0 +1,55 @@
+body{
+  background-image: url(https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg);
+}
+
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h1{
+  color:white;
+  font-size: 50px;
+  font-family: 'Press Start 2P', cursive;
+}
+.password-text {
+  border: 0;
+  border-bottom: 2px solid #1976D2;
+  width: 100%;
+  font-size: 20px;
+  line-height: 35px;
+  height: 70px;
+  text-align: center;
+  padding: 10px;
+  background: transparent;
+  font-family: 'Unica One', cursive;
+  color: #BBDEFB
+}
+
+p{
+  color:white;
+  font-family: 'Unica One', cursive;
+}
+
+/* Esconde o input */
+input[type='file'] {
+  display: none
+}
+
+input[type='button']{
+  display: none
+}
+/* Aparência que terá o seletor de arquivo */
+label {
+  font-family: 'Unica One', cursive;
+  background-color: #3498db;
+  border-radius: 20px;
+  color: #ffffff;
+  cursor: pointer;
+  width: 100px;
+  margin: 30px;
+  padding: 10px 30px
+}
+

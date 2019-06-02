@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+  <p>Password to Decrypt:</p>
+  <input id="password-to-decrypt" class="password-text" name="password-to-decrypt" type="text" style="text-align:center;" size=54>
+  <input id="fid" class="fid" value={{fid}} name="fid" type="hidden">
+  <input id="password" type="hidden">
+</div>
+<div>
+  <br>
+  <label for="file">Download</label>
+  <input onclick="getfile()" id="file" name="file-to-encrypt" type="button">
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+  <br>
+  <label for="file">Select a File</label>
+  <input id="file" name="file-to-encrypt" type="file">
+  <p id="file-selected"></p>
+</div>
+
+<div>
+  <p>Password:</p>
+  <input id="password" class="password-text" name="password-to-encrypt" type="text" size=54>
+  <input id="url-share" class="password-text" name="url-share" type="hidden" size=54 >
+</div>
+  <div>
+    <br>
+    <label for="upload">Upload</label>
+    <input id="upload" value="Upload" type="button" onclick="encrypt()">
+  </div>
+  <script src="static/js/password.js"></script>
+  <script src="static/js/file.js"></script>
+  {% endblock %}
