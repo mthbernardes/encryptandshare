@@ -3,7 +3,7 @@
 {% block content %}
 <div>
   <br>
-  <label for="file">Select a File</label>
+  <label id="file-select" for="file">Select a File</label>
   <input id="file" name="file-to-encrypt" type="file">
   <p id="file-selected"></p>
 </div>
@@ -15,7 +15,7 @@
 </div>
   <div>
     <br>
-    <label for="upload">Upload</label>
+    <label id="upload-button" for="upload">Upload</label>
     <input id="upload" value="Upload" type="button" onclick="encrypt()">
   </div>
   <script src="static/js/password.js"></script>

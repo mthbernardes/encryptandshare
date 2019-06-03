@@ -5,6 +5,9 @@ function upload(fcontent, fname){
       var response = JSON.parse(xhr.responseText);
       document.getElementById("url-share").value = location.protocol + "//" + location.host + "/" + response["fid"]
       document.getElementById("url-share").type = "text"
+      document.getElementById("file-select").style.visibility = "hidden"
+      document.getElementById("upload-button").style.visibility = "hidden"
+      $('body').loading('stop');
     }
   }
   xhr.open("POST", "/api/upload");
@@ -20,9 +23,11 @@ function download(fname,fcontent){
   document.body.appendChild(element);
   element.click();
   document.body.removeChild(element);
+  $('body').loading('stop');
 }
 
 function getfile() {
+  $('body').loading({theme: 'dark'});
   var fid = document.getElementById("fid").value
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
@@ -30,13 +35,6 @@ function getfile() {
       var response = JSON.parse(xhr.responseText);
       var file = new File([response["fcontent"]],response["fname"])
       decrypt(file)
-      //fname= decrypt(response["fname"])
-      //fcontent = decrypt(response["fcontent"])
-      //if (fname) {
-      //  download(fname,fcontent)
-      //} else {
-      //    alert("Impossible to decrypt")
-      //  }
       }
     }
   xhr.open("POST", "/api/download");

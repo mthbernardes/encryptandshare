@@ -31,7 +31,7 @@ def indexPage():
 def downloadPage(fid):
     try:
         UUID(fid)
-        return get_template('download.html').render({"fid":fid})
+        return render_template('download.html',fid=fid)
     except:
         return render_template('404.html'), 404
 
@@ -39,7 +39,6 @@ def downloadPage(fid):
 def page_not_found(e):
     print(e)
     return render_template('404.html'), 404
-
 
 if __name__ == "__main__":
     app.run(debug=True)
