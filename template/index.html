@@ -11,6 +11,8 @@
 <div>
   <p>Password:</p>
   <input id="password" class="password-text" name="password-to-encrypt" type="text" size=54>
+  <p>Download Limit:</p>
+  <input value="1" id="limit-downloads" onkeypress="intergerValidate(event)" maxlength="2" class="password-text" name="password-to-encrypt" type="text" size=4>
   <input id="url-share" class="password-text" name="url-share" type="hidden" size=54 >
 </div>
   <div>
@@ -19,5 +21,6 @@
     <input id="upload" value="Upload" type="button" onclick="encrypt()">
   </div>
   <script src="static/js/password.js"></script>
+  <script src="static/js/util.js"></script>
   <script src="static/js/file.js"></script>
   {% endblock %}

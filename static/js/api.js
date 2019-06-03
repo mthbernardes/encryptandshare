@@ -1,4 +1,4 @@
-function upload(fcontent, fname){
+function upload(fcontent, fname, limit){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
@@ -7,12 +7,13 @@ function upload(fcontent, fname){
       document.getElementById("url-share").type = "text"
       document.getElementById("file-select").style.visibility = "hidden"
       document.getElementById("upload-button").style.visibility = "hidden"
+      document.getElementById("limit-downloads").setAttribute("readonly", true)
       $('body').loading('stop');
     }
   }
   xhr.open("POST", "/api/upload");
   xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send(JSON.stringify({fcontent:fcontent, fname:fname}));
+  xhr.send(JSON.stringify({fcontent:fcontent, fname:fname, limit:limit}));
 }
 
 function download(fname,fcontent){

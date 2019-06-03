@@ -10,13 +10,3 @@ try {
 } catch (e) {
   console.log(e)
 }
-
-document.getElementById("url-share").onclick = function() {
-  this.select();
-  document.execCommand('copy');
-}
-
-document.getElementById("password").onclick = function() {
-  this.select();
-  document.execCommand('copy');
-}

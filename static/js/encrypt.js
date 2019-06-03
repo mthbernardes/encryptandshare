@@ -7,10 +7,11 @@ function encrypt() {
 
     var contents = e.target.result
     var password = document.getElementById("password").value
+    var limit = document.getElementById("limit-downloads").value
     document.getElementById("password").value = password
     var fileContentsEnc = CryptoJS.AES.encrypt(contents, password).toString();
     var fileNameEnc = CryptoJS.AES.encrypt(file.name, password).toString();
-    upload(fileContentsEnc,fileNameEnc)
+    upload(fileContentsEnc,fileNameEnc,limit)
   }
   reader.readAsDataURL(file)
 }
@@ -27,6 +28,7 @@ function decrypt(file){
         download(fname,fcontent)
       } else {
         alert("Unable to decrypt");
+        window.location.href = "/"
       }
     }
   reader.readAsText(file)

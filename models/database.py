@@ -7,5 +7,6 @@ class Models(object):
         db.define_table('files',
                 Field('fname'),
                 Field('fcontent'),
+                Field('limit'),
                 Field('fid'))
         return db
