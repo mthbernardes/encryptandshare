@@ -1,7 +1,9 @@
 function generatePasswords() {
   var password = ""
-  for(i=0; i<5; i++){
-    password += (Math.random() * 10000000).toString(36).replace('.', '')
+  var array = new Uint32Array(6);
+  window.crypto.getRandomValues(array);
+  for (var i = 0; i < array.length; i++) {
+    password += array[i].toString(36);
   }
   document.getElementById("password").value = password;
 }
