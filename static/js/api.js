@@ -1,19 +1,20 @@
 function upload(fcontent, fname, limit){
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      var response = JSON.parse(xhr.responseText);
-      document.getElementById("url-share").value = location.protocol + "//" + location.host + "/" + response["fid"]
-      document.getElementById("url-share").type = "text"
-      document.getElementById("file-select").style.visibility = "hidden"
-      document.getElementById("upload-button").style.visibility = "hidden"
-      document.getElementById("limit-downloads").setAttribute("readonly", true)
-      $('body').loading('stop');
-    }
-  }
-  xhr.open("POST", "/api/upload");
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send(JSON.stringify({fcontent:fcontent, fname:fname, limit:limit}));
+    var encfile = new File([content],fname)
+//  var xhr = new XMLHttpRequest();
+//  xhr.onreadystatechange = function() {
+//    if (xhr.readyState === 4) {
+//      var response = JSON.parse(xhr.responseText);
+//      document.getElementById("url-share").value = location.protocol + "//" + location.host + "/" + response["fid"]
+//      document.getElementById("url-share").type = "text"
+//      document.getElementById("file-select").style.visibility = "hidden"
+//      document.getElementById("upload-button").style.visibility = "hidden"
+//      document.getElementById("limit-downloads").setAttribute("readonly", true)
+//      $('body').loading('stop');
+//    }
+//  }
+//  xhr.open("POST", "/api/upload");
+//  xhr.setRequestHeader("Content-Type", "application/json");
+//  xhr.send(JSON.stringify({fcontent:fcontent, fname:fname, limit:limit}));
 }
 
 function download(fname,fcontent){

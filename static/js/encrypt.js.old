@@ -18,45 +18,32 @@ function encrypt() {
     data: JSON.stringify({fname:fname_enc,limit:limit}),
     success: function (response){
       var fid = response["fid"]
+      onprogress(fid)
       onload(fid)
-      reader.readAsArrayBuffer(rawfile)
+      reader.readAsBinaryString(rawfile)
     }
   });
 
-  function sendToServer(binary,fid,count){
-    console.log(binary)
-    var xhr = new XMLHttpRequest();
-    xhr.open("PUT", "/api/upload/"+fid+"/"+count,false);
-    xhr.setRequestHeader("Content-Type", "application/octet-stream");
-    xhr.send(binary);
-  }
-
-  function onload (fid){
-    reader.onload = function (e){
+  function onprogress (fid){
+    reader.onprogress = function (e){
       console.log(e)
       console.log(Math.round((e.loaded /1000000))+ "Mb/" + Math.round((e.total/1000000))+"Mb")
-      var binary = ""
-      var bytes = new Uint8Array(e.target.result)
-      var length = bytes.byteLength;
-      var CHUNK_SIZE = 4096 * 1000
-      var count = 1
-      for (var i = 0; i < length; i++) {
-        binary += String.fromCharCode(bytes[i]);
-        //binary += bytes[i]
-        //if(binary.length >= CHUNK_SIZE){
-        //  enc_content += CryptoJS.AES.encrypt(binary, password).toString(CryptoJS.enc.Utf8);
-        //  console.log(enc_content)
-        //  sendToServer(enc_content,fid,count)
-        //  count += 1
-        //  binary = ""
-        //}
-      }
-      if(binary){
-        //enc_content += CryptoJS.AES.encrypt(binary, password).toString(CryptoJS.enc.Utf8);
-        //sendToServer(binary,fid,count)
-        download("file.jpg",binary)
-      }
-      console.log(binary)
+      result = e.target.result.slice(lastlength)
+      lastlength = e.target.result.length
+      enc_content = result
+      //enc_content = CryptoJS.AES.encrypt(result , password).toString();
+      enc_content = result
+      var xhr = new XMLHttpRequest();
+      xhr.open("PUT", "/api/upload/"+fid+"/"+count);
+      xhr.setRequestHeader("Content-Type", "application/octet-stream");
+      xhr.send(enc_content);
+      count += 1
+    }
+  }
+
+  function onload(fid){
+    reader.onload = function (e) {
+      console.log(e)
       var xhr = new XMLHttpRequest();
       xhr.open("PATCH", "/api/upload/"+fid);
       xhr.send();
@@ -72,11 +59,6 @@ function encrypt() {
       }
     }
   }
-
-
-  //  function onload(fid){
-  //    reader.onload = function (e) {
-  //      console.log(e)
 }
 
 function decrypt(file){
@@ -101,9 +83,9 @@ function decrypt(file){
           if (xhr.readyState === 4) {
             //result = e.target.result.slice(lastlength,)
             //lastlength = e.target.response.length
-            dec_content += CryptoJS.AES.decrypt(data.target.response, password).toString(CryptoJS.enc.Utf8)
-            //console.log(data.target.response)
-            //dec_content += data.target.response
+            //dec_content += CryptoJS.AES.decrypt(data.target.responseText, password).toString()
+            console.log(data.target.response)
+            dec_content += data.target.response
           }
         }
         xhrinside.send();
@@ -117,7 +99,7 @@ function decrypt(file){
 
 function download(fname,fcontent){
   console.log("Dowloading...")
-  var data = new Blob([fcontent],{type: 'application/octet-binary'})
+  var data = new Blob([fcontent])
   var url = window.URL.createObjectURL(data);
   var element = document.createElement('a');
   element.setAttribute('href', url);

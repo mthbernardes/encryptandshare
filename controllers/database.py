@@ -1,9 +1,9 @@
 from models.database import Models
 
 class Database(object):
-    def insert(self,fname,fcontent,limit,fid):
+    def insert(self,fname,limit,fid,status):
         db = Models()
-        db.files.insert(fname=fname,fcontent=fcontent,limit=limit,fid=fid)
+        db.files.insert(fname=fname,limit=limit,fid=fid,status=status)
         db.commit()
 
     def get(self,fid):
@@ -16,6 +16,13 @@ class Database(object):
         db(db.files.fid == fid).update(limit=limit)
         db.commit()
         return True
+
+    def updateStatus(self,fid):
+        db = Models()
+        db(db.files.fid == fid).update(status=True)
+        db.commit()
+        return True
+
 
     def delete(self,fid):
         db = Models()
