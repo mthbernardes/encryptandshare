@@ -1,3 +1,13 @@
+function download(name,uri) {
+  var link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  delete link;
+}
+
 function intergerValidate(event) {
     var code;
 
@@ -24,4 +34,5 @@ document.getElementById("password").onclick = function() {
   this.select();
   document.execCommand('copy');
 }
+
 
