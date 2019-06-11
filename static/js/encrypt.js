@@ -3,9 +3,9 @@ function encrypt() {
   var reader = new FileReader();
   var lastlength = 0;
   var count = 1;
-  //var password = document.getElementById("password").value
-  var password_string = "admin"
+  var password_string = document.getElementById("password").value
 
+  console.log(password_string)
   clearInterval(passwordgenerator);
   $('html').loading({theme: 'dark'})
   var fname_enc = CryptoJS.AES.encrypt(rawfile.name, password_string).toString();
@@ -18,7 +18,6 @@ function encrypt() {
     success: function (response){
       var fid = response["fid"]
       onload(fid)
-      //reader.readAsArrayBuffer(rawfile,"utf-8")
       reader.readAsDataURL(rawfile,"utf-8")
     }
   });
@@ -36,12 +35,10 @@ function encrypt() {
       var binary = ""
       var bytes = reader.result
       var length = bytes.length
-      var CHUNK_SIZE = 2048 * 1000
+      var CHUNK_SIZE = 4096 * 1000
       var count = 1
       if(length <= CHUNK_SIZE){
         console.log("menor")
-        //wordarray = CryptoJS.lib.WordArray.create(bytes)
-        //enc_content = CryptoJS.AES.encrypt(wordarray, password_string).toString();
         enc_content = CryptoJS.AES.encrypt(bytes, password_string).toString();
         sendToServer(enc_content,fid,count)
         console.log(bytes[0])
@@ -49,6 +46,7 @@ function encrypt() {
         for (var i = 0; i < length; i++) {
           binary += bytes[i]
           if(binary.length >= CHUNK_SIZE){
+            console.log(binary.size)
             enc_content = CryptoJS.AES.encrypt(binary, password_string).toString();
             sendToServer(enc_content,fid,count)
             enc_content = ""
@@ -57,9 +55,8 @@ function encrypt() {
           }
         }
         if(binary.length > 0){
-          console.log(binary.length)
           enc_content = CryptoJS.AES.encrypt(binary, password_string).toString();
-          sendToServer(binary,fid,count)
+          sendToServer(enc_content,fid,count)
         }
       }
       var xhr = new XMLHttpRequest();
@@ -81,8 +78,8 @@ function encrypt() {
 
 function decrypt(file){
   $('html').loading({theme: 'dark'})
-  var password_string = "admin"
-  //var password = document.getElementById("password").value
+  var password_string = document.getElementById("password-to-decrypt").value
+  console.log(password_string)
   var reader = new FileReader();
   var dec_content= ""
   var lastlength = 0;
@@ -93,7 +90,7 @@ function decrypt(file){
   xhr.onreadystatechange = function (data) {
     if (xhr.readyState === 4) {
       var count = JSON.parse(data.target.response)["chunks"]
-      var filename = CryptoJS.AES.decrypt(JSON.parse(data.target.response)["fname"],password_string).toString(CryptoJS.enc.Utf8)
+      var filename = CryptoJS.AES.decrypt(JSON.parse(data.target.response)["fname"], password_string).toString(CryptoJS.enc.Utf8)
       for (var i=1; i <= count; i++){
         var xhrinside = new XMLHttpRequest();
         console.log(i)
@@ -108,25 +105,12 @@ function decrypt(file){
         }
         xhrinside.send();
       }
-      //download(filename,dec_content)
+      download(filename,dec_content)
       $('html').loading('stop')
     }
   }
 }
 
-//function download(fname,fcontent){
-//  console.log("Dowloading...")
-//  var data = new Blob([fcontent],{encoding: 'utf-8'})
-//  var url = window.URL.createObjectURL(data);
-//  var element = document.createElement('a');
-//  element.setAttribute('href', url);
-//  element.setAttribute('download', fname);
-//  element.style.display = 'none';
-//  console.log(element)
-//  document.body.appendChild(element);
-//  element.click();
-//  document.body.removeChild(element);
-//}
 function downloadURI(name,uri) {
   var link = document.createElement("a");
   link.download = name;
