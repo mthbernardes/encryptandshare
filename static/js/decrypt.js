@@ -5,7 +5,7 @@ function decrypt(file){
   var dec_content= "";
   var lastlength = 0;
   var fid = $("#fid").val();
-  
+
   $.ajax({
     method: "POST",
     url: "/api/download/"+fid,
@@ -19,15 +19,18 @@ function decrypt(file){
       ).then(
         response=>response.join("")
       ).then(
-        response=>download(filename,response)
+        response=>{
+          $("#loader").css("visibility", "hidden")
+          return download(filename,response)
+        }
       )
     }
   })
 }
-      
+
 function downloadfromserver(fid,i){
   return axios({
     method: "GET",
     url: "/api/download/"+fid+"/"+i,
-    })
+  })
 }
