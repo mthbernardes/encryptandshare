@@ -5,24 +5,44 @@ function decrypt(file){
   var dec_content= "";
   var lastlength = 0;
   var fid = $("#fid").val();
+  
   $.ajax({
     method: "POST",
     url: "/api/download/"+fid,
     success: function (data){
-      var count = data.chunks
+      var count = [...Array(data.chunks).keys()]
       var filename = CryptoJS.AES.decrypt(data.fname, password_string).toString(CryptoJS.enc.Utf8)
-      for (var i=1; i <= count; i++){
-        $.ajax({
-          method: "GET",
-          async: false,
-          url: "/api/download/"+fid+"/"+i,
-          success: function (data){
-            dec_content += CryptoJS.AES.decrypt(data, password_string).toString(CryptoJS.enc.Utf8)
-          }
-        });
-      }
-      download(filename,dec_content)
-      $("#loader").css("visibility", "hidden")
+      console.log(filename)
+      var promises = count.map((count)=>downloadfromserver(fid,count+1))
+      Promise.all(promises).then((response)=>
+        response.map(data=>CryptoJS.AES.decrypt(data.data, password_string).toString(CryptoJS.enc.Utf8))
+      ).then(
+        response=>response.join("")
+      )
+
+        .then(
+        response=>download(filename,response)
+      )
     }
-  });
+  })
+}
+      
+
+
+
+
+
+
+
+//      for (var i=1; i <= count; i++){
+//      }
+//      dec_content +=             $("#loader").css("visibility", "hidden")
+//    }
+//  });
+
+function downloadfromserver(fid,i){
+  return axios({
+    method: "GET",
+    url: "/api/download/"+fid+"/"+i,
+    })
 }
