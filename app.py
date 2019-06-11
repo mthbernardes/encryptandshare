@@ -13,23 +13,5 @@ app.register_blueprint(upload)
 app.register_blueprint(download)
 app.register_blueprint(templates)
 
-#@app.route("/")
-#def indexPage():
-#    return render_template("index.html")
-#
-#@app.route("/<fid>")
-#def downloadPage(fid):
-#    try:
-#        UUID(fid)
-#        return render_template("download.html",fid=fid)
-#    except:
-#
-#        return render_template("404.html"), 404
-#
-#@app.errorhandler(404)
-#def page_not_found(e):
-#    print(e)
-#    return render_template("404.html"), 404
-
 if __name__ == "__main__":
     app.run(debug=True)

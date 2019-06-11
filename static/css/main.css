@@ -1,5 +1,10 @@
-body{
-  background-image: url(https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg);
+body {
+  background-image: url(../imgs/background.jpeg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
 }
 
 .container {
@@ -9,42 +14,42 @@ body{
   transform: translate(-50%, -50%);
 }
 
-h1{
+h1 {
   color:white;
-  font-size: 50px;
-  font-family: 'Press Start 2P', cursive;
+  font-size: 5vw;
+  font-family: 'Crimson Text', serif;
 }
 .password-text {
   border: 0;
-  border-bottom: 2px solid #1976D2;
-  width: 100%;
-  font-size: 20px;
-  line-height: 35px;
+  border-bottom: 1px solid #1976D2;
+  width: 80%;
+  font-size: 1vw;
+  line-height: 5px;
+  padding: 10px;
   height: 70px;
   text-align: center;
-  padding: 10px;
   background: transparent;
-  font-family: 'Unica One', cursive;
-  color: #BBDEFB
+  font-family: 'Tajawal', sans-serif;
+  color: #ffffff
 }
 
-p{
+p {
   color:white;
-  font-family: 'Unica One', cursive;
+  font-size: 1vw;
+  font-family: 'Tajawal', sans-serif;
 }
 
-/* Esconde o input */
 input[type='file'] {
   display: none
 }
 
-input[type='button']{
+input[type='button'] {
   display: none
 }
-/* Aparência que terá o seletor de arquivo */
+
 label {
   font-family: 'Unica One', cursive;
-  background-color: #3498db;
+  background-color: #0f1940a1;
   border-radius: 20px;
   color: #ffffff;
   cursor: pointer;
@@ -52,4 +57,17 @@ label {
   margin: 30px;
   padding: 10px 30px
 }
+ .loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  visibility: hidden;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
