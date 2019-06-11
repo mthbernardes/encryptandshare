@@ -1,8 +1,8 @@
 function sendToServer(binary,fid,count) {
-  $.ajax({
+  return axios({
     method: "PUT",
     url: "/api/upload/"+fid+"/"+count,
-    contentType: "application/octet-stream;utf-8",
+    headers: { 'content-type':"application/octet-stream"},
     data: binary
   });
 }

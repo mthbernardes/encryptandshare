@@ -18,28 +18,13 @@ function decrypt(file){
         response.map(data=>CryptoJS.AES.decrypt(data.data, password_string).toString(CryptoJS.enc.Utf8))
       ).then(
         response=>response.join("")
-      )
-
-        .then(
+      ).then(
         response=>download(filename,response)
       )
     }
   })
 }
       
-
-
-
-
-
-
-
-//      for (var i=1; i <= count; i++){
-//      }
-//      dec_content +=             $("#loader").css("visibility", "hidden")
-//    }
-//  });
-
 function downloadfromserver(fid,i){
   return axios({
     method: "GET",
