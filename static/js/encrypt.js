@@ -1,10 +1,10 @@
-function sendToServer(binary,fid,count) {
+function sendToServer(binary,fid,count,maxchunk) {
   return axios({
     method: "PUT",
     url: "/api/upload/"+fid+"/"+count,
     headers: { 'content-type':"application/octet-stream"},
     data: binary
-  });
+  })    
 }
 
 function encrypt() {
@@ -40,7 +40,7 @@ function encrypt() {
       var CHUNK_SIZE = 1024 * 1000
       var count = 1
       var chunks = chunkArrayInGroups(bytes, CHUNK_SIZE)
-      var promises = chunks.map((chunk,i)=> sendToServer(CryptoJS.AES.encrypt(chunk, password_string).toString(),fid,i+1))
+      var promises = chunks.map((chunk,i) => sendToServer(CryptoJS.AES.encrypt(chunk, password_string).toString(),fid,i+1,chunks.length))
 
       Promise.all(promises).then(()=>
         $.ajax({
@@ -54,32 +54,8 @@ function encrypt() {
             $("#limit-downloads").attr("readonly",true)
             $("#loader").css("visibility", "hidden")
           }
-        }))
-    }}
-
+        })
+      )
+    } 
+  }
 }
-  //
-  //      return
-  //      if(length <= CHUNK_SIZE){
-  //        enc_content = CryptoJS.AES.encrypt(bytes, password_string).toString();
-  //        sendToServer(enc_content,fid,count)
-  //      } else {
-  //        for (var i = 0; i < length; i++) {
-  //          binary += bytes[i]
-  //          if(binary.length >= CHUNK_SIZE){
-  //            enc_content = CryptoJS.AES.encrypt(binary, password_string).toString();
-  //            sendToServer(enc_content,fid,count)
-  //            enc_content = ""
-  //            binary = ""
-  //            count += 1
-  //          }
-  //        }
-  //        if(binary.length > 0){
-  //          enc_content = CryptoJS.AES.encrypt(binary, password_string).toString();
-  //          sendToServer(enc_content,fid,count)
-  //        }
-  //      }
-  //    }
-  //  }
-  //}
-
