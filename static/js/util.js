@@ -1,3 +1,13 @@
+function download(name,uri) {
+  var link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  delete link;
+}
+
 function intergerValidate(event) {
     var code;
 
@@ -25,3 +35,10 @@ document.getElementById("password").onclick = function() {
   document.execCommand('copy');
 }
 
+function chunkArrayInGroups(arr, size) {
+  var myArray = [];
+  for(var i = 0; i < arr.length; i += size) {
+    myArray.push(arr.slice(i, i+size));
+  }
+  return myArray;
+}
